@@ -17,6 +17,13 @@ from rest_framework import mixins, generics
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 
+from blogs.models import Blog, Comment
+from blogs.serializers import BlogSerializer, CommentSerializer
+
+from .paginations import CustomPagination
+from Employee.filters import EmployeeFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
+
 
 
 # def student_views(request):
@@ -189,3 +196,31 @@ class EmployeeViewSet(viewsets.ViewSet):
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    pagination_class = CustomPagination
+    # filterset_class = EmployeeFilter             # for custom filter
+    filter_backends = [SearchFilter, OrderingFilter]              # for search filter
+    search_fields = ['name']              # for search filter
+    ordering_fields = ['name', 'dept']              # for ordering filter
+    ordering_fields = ['id']              # default ordering
+
+
+# --- crud for blog app ----
+
+class BlogViews(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentViews(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class BlogOneViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
+
+class CommentOneViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'
+

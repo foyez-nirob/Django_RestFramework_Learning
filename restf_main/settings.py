@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "student",
     "api",
     "Employee",
+    "blogs",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,15 @@ MAILERS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# for pagination -> Global pagination settings for Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
+}
+
+# global filter settings for django-filter
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'SEARCH_PARAM': 'q',  # Custom search parameter name
+}

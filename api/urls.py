@@ -13,5 +13,12 @@ urlpatterns = [
     # path('Employee/', views.Employees.as_view()),    # as_view() to tell it's a class based views
     # path('Employee/<int:pk>/', views.Employee_one.as_view())
 
-    path('', include(router.urls))
+    path('', include(router.urls)),
+
+    # path for blogs app
+    path('blogs/', views.BlogViews.as_view()),
+    path('comment/', views.CommentViews.as_view()),
+
+    path('blogs/<int:pk>/', views.BlogOneViews.as_view()),
+    path('comment/<int:pk>/', views.CommentOneViews.as_view()),
 ]
